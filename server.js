@@ -35,26 +35,6 @@ app.get("/allcards", async (req, res) => {
     }
 });
 
-
-app.post("/students", async (req, res) => {
-    try {
-        const { Name, Class } = req.body;
-        let connection = await mysql.createConnection(dbConfig);
-
-        await connection.execute(
-            "INSERT INTO defaultdb.students (Name, Class) VALUES (?, ?)",
-            [Name, Class]
-        );
-
-        await connection.end();
-        res.json({ message: "Student added successfully" });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Error adding student" });
-    }
-});
-
-
 app.post("/addcard", async (req, res) => {
     const {card_name,card_pic} = req.body;
     try {
@@ -69,4 +49,3 @@ app.post("/addcard", async (req, res) => {
         res.status(500).json({ message: "Server Error - could not add card "+card_name });
     }
 });
-
