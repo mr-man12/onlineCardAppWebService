@@ -13,9 +13,19 @@ const Add = ({navigation}) => {
       <TextInput style={{borderWidth:1}} onChangeText={(text)=>setPic(text)}/>
       <Text> </Text>  
       <Button title='Submit'
-      onPress={()=>{
-          
-        }
+      onPress={()=> {
+          let item = {card_name: name, card_pic: pic};
+          fetch("https://onlinecardappwebservice.onrender.com/allcards",
+              {
+                  method: "POST",
+                  headers: {"Content-Type": "application/json"},
+                  body: JSON.stringify(item)
+              }
+          )
+          .then((response) => {
+              navigation.navigate('Home');
+          })
+      }
       }
       />
     </View>
